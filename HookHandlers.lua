@@ -9,11 +9,11 @@
 --- Registers all the hooks that the plugin needs to know about
 function InitializeHooks(a_Plugin)
 	local PlgMgr = cRoot:Get():GetPluginManager();
-	PlgMgr:AddHook(a_Plugin, cPluginManager.HOOK_DISCONNECT);
-	PlgMgr:AddHook(a_Plugin, cPluginManager.HOOK_PLAYER_LEFT_CLICK);
-	PlgMgr:AddHook(a_Plugin, cPluginManager.HOOK_PLAYER_MOVING);
-	PlgMgr:AddHook(a_Plugin, cPluginManager.HOOK_PLAYER_RIGHT_CLICK);
-	PlgMgr:AddHook(a_Plugin, cPluginManager.HOOK_PLAYER_SPAWNED);
+	cPluginManager.AddHook(cPluginManager.HOOK_DISCONNECT,         OnDisconnect);
+	cPluginManager.AddHook(cPluginManager.HOOK_PLAYER_LEFT_CLICK,  OnPlayerLeftClick);
+	cPluginManager.AddHook(cPluginManager.HOOK_PLAYER_MOVING,      OnPlayerMoving);
+	cPluginManager.AddHook(cPluginManager.HOOK_PLAYER_RIGHT_CLICK, OnPlayerRightClick);
+	cPluginManager.AddHook(cPluginManager.HOOK_PLAYER_SPAWNED,     OnPlayerSpawned);
 end
 
 
