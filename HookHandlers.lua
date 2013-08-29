@@ -109,7 +109,7 @@ function OnPlayerRightClick(a_Player, a_BlockX, a_BlockY, a_BlockZ, a_BlockFace,
 
 	-- BlockFace < 0 means "use item", for which the coords are not given by the client
 	if (a_BlockFace < 0) then
-		return true;
+		return false;
 	end
 
 	-- Convert the clicked coords into the block space
