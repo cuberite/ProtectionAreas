@@ -18,8 +18,8 @@ cConfig = {
 
 --- Initializes the cConfig object, loads the configuration from an INI file
 function InitializeConfig()
-	local ini = cIniFile("ProtectionAreas.ini");
-	if (not(ini:ReadFile())) then
+	local ini = cIniFile();
+	if (not(ini:ReadFile("ProtectionAreas.ini"))) then
 		LOGINFO(PluginPrefix .. "Cannot read ProtectionAreas.ini, all plugin configuration is set to defaults");
 	end
 	local WandItem = cItem();
@@ -30,7 +30,7 @@ function InitializeConfig()
 		cConfig.m_Wand = WandItem;
 	end
 	cConfig.m_AllowInteractNoArea = ini:GetValueSetB("ProtectionAreas", "AllowInteractNoArea", cConfig.m_AllowInteractNoArea);
-	ini:WriteFile();
+	ini:WriteFile("ProtectionAreas.ini");
 end
 
 
