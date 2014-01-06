@@ -31,7 +31,7 @@ function Initialize(a_Plugin)
 		return false;
 	end
 	InitializeHooks(a_Plugin);
-	InitializeCommandHandlers();
+	RegisterPluginInfoCommands();
 	
 	-- We might be reloading, so there may be players already present in the server; reload all of them
 	cRoot:Get():ForEachWorld(

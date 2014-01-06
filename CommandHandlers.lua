@@ -6,21 +6,10 @@
 
 
 
-function InitializeCommandHandlers()
-	local PlgMgr = cRoot:Get():GetPluginManager();
-	for idx, Cmd in ipairs(CommandReg()) do
-		PlgMgr:BindCommand(Cmd[2], Cmd[3], Cmd[1], Cmd[4]);
-	end
-end
-
-
-
-
-
 --- Handles the ProtAdd command
 function HandleAddArea(a_Split, a_Player)
-	-- Command syntax: ProtAdd username1 [username2] [username3] ...
-	if (#a_Split < 2) then
+	-- Command syntax: /protection add username1 [username2] [username3] ...
+	if (#a_Split < 3) then
 		a_Player:SendMessage(g_Msgs.ErrExpectedListOfUsernames);
 		return true;
 	end
@@ -39,7 +28,7 @@ function HandleAddArea(a_Split, a_Player)
 	
 	-- Put all allowed players into a table:
 	AllowedNames = {};
-	for i = 2, #a_Split do
+	for i = 3, #a_Split do
 		table.insert(AllowedNames, a_Split[i]);
 	end
 	
@@ -58,15 +47,15 @@ end
 
 
 function HandleAddAreaCoords(a_Split, a_Player)
-	-- Command syntax: ProtAddCoords x1 z1 x2 z2 username1 [username2] [username3] ...
-	if (#a_Split < 6) then
+	-- Command syntax: /protection addc x1 z1 x2 z2 username1 [username2] [username3] ...
+	if (#a_Split < 7) then
 		a_Player:SendMessage(g_Msgs.ErrExpectedCoordsUsernames);
 		return true;
 	end
 	
 	-- Convert the coords to a cCuboid
-	local x1, z1 = tonumber(a_Split[2]), tonumber(a_Split[3]);
-	local x2, z2 = tonumber(a_Split[4]), tonumber(a_Split[5]);
+	local x1, z1 = tonumber(a_Split[3]), tonumber(a_Split[4]);
+	local x2, z2 = tonumber(a_Split[5]), tonumber(a_Split[6]);
 	if ((x1 == nil) or (z1 == nil) or (x2 == nil) or (z2 == nil)) then
 		a_Player:SendMessage(g_Msgs.ErrParseCoords);
 		return true;
@@ -76,7 +65,7 @@ function HandleAddAreaCoords(a_Split, a_Player)
 	
 	-- Put all allowed players into a table:
 	AllowedNames = {};
-	for i = 6, #a_Split do
+	for i = 7, #a_Split do
 		table.insert(AllowedNames, a_Split[i]);
 	end
 	
@@ -95,21 +84,21 @@ end
 
 
 function HandleAddAreaUser(a_Split, a_Player)
-	-- Command syntax: ProtAddUser AreaID username1 [username2] [username3] ...
-	if (#a_Split < 3) then
+	-- Command syntax: /protection user add AreaID username1 [username2] [username3] ...
+	if (#a_Split < 5) then
 		a_Player:SendMessage(g_Msgs.ErrExpectedAreaIDUsernames);
 		return true;
 	end
 	
 	-- Put all allowed players into a table:
 	AllowedNames = {};
-	for i = 3, #a_Split do
+	for i = 5, #a_Split do
 		table.insert(AllowedNames, a_Split[i]);
 	end
 	
 	-- Add the area to the storage
 	if (not(g_Storage:AddAreaUsers(
-		tonumber(a_Split[2]), a_Player:GetWorld():GetName(), a_Player:GetName(), AllowedNames))
+		tonumber(a_Split[4]), a_Player:GetWorld():GetName(), a_Player:GetName(), AllowedNames))
 	) then
 		LOGWARNING("g_Storage:AddAreaUsers failed");
 		a_Player:SendMessage(g_Msgs.ErrDBFailAddUsers);
@@ -132,14 +121,14 @@ end
 
 
 function HandleDelArea(a_Split, a_Player)
-	-- Command syntax: ProtDelArea AreaID
-	if (#a_Split ~= 2) then
+	-- Command syntax: /protection del AreaID
+	if (#a_Split ~= 3) then
 		a_Player:SendMessage(g_Msgs.ErrExpectedAreaID);
 		return true;
 	end
 	
 	-- Parse the AreaID
-	local AreaID = tonumber(a_Split[2]);
+	local AreaID = tonumber(a_Split[3]);
 	if (AreaID == nil) then
 		a_Player:SendMessage(g_Msgs.ErrParseAreaID);
 		return true;
@@ -174,10 +163,10 @@ end
 
 
 function HandleListAreas(a_Split, a_Player)
-	-- Command syntax: ProtListAreas [x, z]
+	-- Command syntax: /protection list [x z]
 	
 	local x, z;
-	if (#a_Split == 1) then
+	if (#a_Split == 2) then
 		-- Get the last "wanded" coord
 		local CmdState = GetCommandStateForPlayer(a_Player);
 		if (CmdState == nil) then
@@ -189,10 +178,10 @@ function HandleListAreas(a_Split, a_Player)
 			a_Player:SendMessage(g_Msgs.ErrListNotWanded);
 			return true;
 		end
-	elseif (#a_Split == 3) then
+	elseif (#a_Split == 4) then
 		-- Parse the coords from the command params
-		x = tonumber(a_Split[2]);
-		z = tonumber(a_Split[3]);
+		x = tonumber(a_Split[3]);
+		z = tonumber(a_Split[4]);
 		if ((x == nil) or (z == nil)) then
 			a_Player:SendMessage(g_Msgs.ErrParseCoordsListAreas);
 			return true;
@@ -230,13 +219,13 @@ end
 
 --- Lists all allowed users for a particular area
 function HandleListUsers(a_Split, a_Player)
-	-- Command syntax: ProtListUsers AreaID
-	if (#a_Split ~= 2) then
+	-- Command syntax: /protection user list AreaID
+	if (#a_Split ~= 4) then
 		a_Player:SendMessage(g_Msgs.ErrExpectedAreaID);
 	end
 	
 	-- Get the general info about the area
-	local AreaID = a_Split[2];
+	local AreaID = a_Split[4];
 	local WorldName = a_Player:GetWorld():GetName();
 	local MinX, MinZ, MaxX, MaxZ, CreatorName = g_Storage:GetArea(AreaID, WorldName);
 	if (MinX == nil) then
@@ -267,21 +256,21 @@ end
 
 
 function HandleRemoveUser(a_Split, a_Player)
-	-- Command syntax: ProtRemUser AreaID UserName
-	if (#a_Split ~= 3) then
+	-- Command syntax: /protection user remove AreaID UserName
+	if (#a_Split ~= 5) then
 		a_Player:SendMessage(g_Msgs.ErrExpectedAreaIDUserName);
 		return true;
 	end
 	
 	-- Parse the AreaID
-	local AreaID = tonumber(a_Split[2]);
+	local AreaID = tonumber(a_Split[4]);
 	if (AreaID == nil) then
 		a_Player:SendMessage(g_Msgs.ErrParseAreaID);
 		return true;
 	end
 	
 	-- Remove the user from the DB
-	local UserName = a_Split[3];
+	local UserName = a_Split[5];
 	g_Storage:RemoveUser(AreaID, UserName, a_Player:GetWorld():GetName());
 	
 	-- Send confirmation
@@ -298,14 +287,14 @@ end
 
 
 function HandleRemoveUserAll(a_Split, a_Player)
-	-- Command syntax: ProtRemUserAll UserName
-	if (#a_Split ~= 2) then
+	-- Command syntax: /protection user strip UserName
+	if (#a_Split ~= 4) then
 		a_Player:SendMessage(g_Msgs.ErrExpectedUserName);
 		return true;
 	end
 	
 	-- Remove the user from the DB
-	g_Storage:RemoveUserAll(a_Split[2], a_Player:GetWorld():GetName());
+	g_Storage:RemoveUserAll(a_Split[4], a_Player:GetWorld():GetName());
 
 	-- Send confirmation
 	a_Player:SendMessage(string.format(g_Msgs.RemovedUserAll, UserName));

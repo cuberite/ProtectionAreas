@@ -7,27 +7,6 @@
 
 
 
--- Individual commands, and their help strings. Don't touch the first symbol on each line!
--- This needs to be implemented as a function, because it references other functions which might not yet be loaded while Lua is processing the globals
-
-function CommandReg()
-	return {
-		-- Handler function  | Command          | Permission    | Help text
-		{HandleAddArea,       "/ProtAdd",        "Prot.Add",     "<UserNames> - Adds a new protected area"},
-		{HandleAddAreaCoords, "/ProtAddCoords",  "Prot.Add",     "<x1> <z1> <x2> <z2> <UserNames> - Adds a new protected area by coords"},
-		{HandleAddAreaUser,   "/ProtAddUser",    "Prot.AddUser", "<AreaID> <UserNames> - Adds new users to an existing protected area"},
-		{HandleDelArea,       "/ProtDelID",      "Prot.Del",     "<AreaID> - Deletes a protected area by ID"},
-		{HandleGiveWand,      "/ProtWand",       "Prot.Wand",    " - Gives you the wand used for protection"},
-		{HandleListAreas,     "/ProtList",       "Prot.List",    "[<x> <z>] - Lists all areas for the marked block or given coords"},
-		{HandleListUsers,     "/ProtUsers",      "Prot.List",    "<AreaID> - Lists all allowed users for a given area ID"},
-		{HandleRemoveUser,    "/ProtRemUser",    "Prot.RemUser", "<AreaID> <UserName> - Removes a user from the protected area"},
-		{HandleRemoveUserAll, "/ProtRemUserAll", "Prot.RemUser", "<UserName> - Removes a user from all protected areas"},
-	};
-end;
-
-
-
-
 
 --- Messages sent to players
 g_Msgs =

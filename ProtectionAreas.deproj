@@ -16,6 +16,12 @@
     <filename>HookHandlers.lua</filename>
   </file>
   <file>
+    <filename>Info.lua</filename>
+  </file>
+  <file>
+    <filename>InfoReg.lua</filename>
+  </file>
+  <file>
     <filename>PlayerAreas.lua</filename>
   </file>
   <file>
