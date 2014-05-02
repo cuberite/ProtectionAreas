@@ -9,7 +9,7 @@
 --- Registers all the hooks that the plugin needs to know about
 function InitializeHooks(a_Plugin)
 	local PlgMgr = cRoot:Get():GetPluginManager();
-	cPluginManager.AddHook(cPluginManager.HOOK_DISCONNECT,         OnDisconnect);
+	cPluginManager.AddHook(cPluginManager.HOOK_PLAYER_DESTROYED,   OnPlayerDestroyed);
 	cPluginManager.AddHook(cPluginManager.HOOK_PLAYER_LEFT_CLICK,  OnPlayerLeftClick);
 	cPluginManager.AddHook(cPluginManager.HOOK_PLAYER_MOVING,      OnPlayerMoving);
 	cPluginManager.AddHook(cPluginManager.HOOK_PLAYER_RIGHT_CLICK, OnPlayerRightClick);
@@ -20,8 +20,8 @@ end
 
 
 
---- Called by MCS when a player's connectino is lost - either they disconnected or timed out
-function OnDisconnect(a_Player, a_Reason)
+--- Called by MCS when a player disconnects
+function OnPlayerDestroyed(a_Player)
 	-- Remove the player's cProtectionArea object
 	g_PlayerAreas[a_Player:GetUniqueID()] = nil;
 	
