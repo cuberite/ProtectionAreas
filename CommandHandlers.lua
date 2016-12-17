@@ -60,7 +60,7 @@ function HandleAddAreaCoords(a_Split, a_Player)
 		a_Player:SendMessage(g_Msgs.ErrParseCoords);
 		return true;
 	end
-	local Cuboid = cCuboid(x1, 0, z1, x2, 255, z1);
+	local Cuboid = cCuboid(x1, 0, z1, x2, 255, z2);
 	Cuboid:Sort();
 	
 	-- Put all allowed players into a table:
