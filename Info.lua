@@ -10,6 +10,7 @@
 g_PluginInfo = 
 {
 	Name = "ProtectionAreas",
+	Version = "1",
 	Date = "2013-12-29",
 	Description =
 	[[
@@ -18,7 +19,7 @@ g_PluginInfo =
 
 		An area is defined by the VIP by using a Wand item (by default, a stick with a meta 1) by left-clicking
 		and right-clicking in two opposite corners of the area, then issuing a /protection add command. Multiple
-		users can be allowed in a single area. There is no hardcoded limit on the number of areas or the number
+		users can be allowed in a single area. There is no hard coded limit on the number of areas or the number
 		of players allowed in a single area. Areas can overlap; in such a case, if a user is allowed in any one
 		of the overlapping areas, they are allowed to build / dig.
 
@@ -107,14 +108,14 @@ g_PluginInfo =
 						},
 						{
 							Params = "x z",
-							Help = "lists all areas that contain the specified block coords",
+							Help = "lists all areas that contain the specified block co-ordinates",
 						},
 					},  -- ParameterCombinations
 				},  -- list
 				
 				user =
 				{
-					-- Common prefix for manipulationg users; has subcommands, so no Permissions, HelpString nor Handler
+					-- Common prefix for manipulating users; has subcommands, so no Permissions, HelpString nor Handler
 					Permission = "",
 					HelpString = "",
 					Handler = nil,
