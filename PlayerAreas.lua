@@ -50,6 +50,29 @@ end
 
 
 
+--- returns true if mob can spawn
+function cPlayerAreas:CanMobSpawn(a_BlockX, a_BlockZ)
+	assert(self)
+	if (cConfig.m_AllowMobSpawning) then
+		return true
+	else
+		-- iterate through all the stored areas:
+		local IsInsideAnyArea = false
+		for idx, Area in ipairs(self) do
+			if (Area.m_Cuboid:IsInside(a_BlockX, 1, a_BlockZ)) then -- will the mob spawn in an area?
+				IsInsideAnyArea = true
+				return false
+			end
+		end
+		if not(IsInsideAnyArea) then
+			return true
+		end
+	end
+end
+
+
+
+
 
 --- returns true if the player owning this object can interact with the specified block
 function cPlayerAreas:CanInteractWithBlock(a_BlockX, a_BlockZ)
