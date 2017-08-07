@@ -7,13 +7,13 @@
 
 
 --- Prefix for all messages logged to the server console
-PluginPrefix = "ProtectionAreas: ";
+PluginPrefix = "ProtectionAreas: "
 
 --- Bounds for the area loading. Areas less this far in any direction from the player will be loaded into cPlayerAreas
-g_AreaBounds = 48;
+g_AreaBounds = 48
 
 --- If a player moves this close to the PlayerAreas bounds, the PlayerAreas will be re-queried
-g_AreaSafeEdge = 12;
+g_AreaSafeEdge = 12
 
 
 
@@ -22,13 +22,13 @@ g_AreaSafeEdge = 12;
 --- Called by MCS when the plugin loads
 -- Returns true if initialization successful, false otherwise
 function Initialize(a_Plugin)
-	a_Plugin:SetName("ProtectionAreas");
-	a_Plugin:SetVersion(1);
+	a_Plugin:SetName(g_PluginInfo.Name)
+	a_Plugin:SetVersion(g_PluginInfo.Version)
 	
-	InitializeConfig();
+	InitializeConfig()
 	if (not(InitializeStorage())) then
-		LOGWARNING(PluginPrefix .. "failed to initialize Storage, plugin is disabled");
-		return false;
+		LOGWARNING(PluginPrefix .. "failed to initialize storage, plugin is disabled")
+		return false
 	end
 	InitializeHooks(a_Plugin);
 	dofile(cPluginManager:GetPluginsPath() .. "/InfoReg.lua")
@@ -37,11 +37,11 @@ function Initialize(a_Plugin)
 	-- We might be reloading, so there may be players already present in the server; reload all of them
 	cRoot:Get():ForEachWorld(
 		function(a_World)
-			ReloadAllPlayersInWorld(a_World:GetName());
+			ReloadAllPlayersInWorld(a_World:GetName())
 		end
-	);
-	
-	return true;
+	)
+	LOG("Initialized " .. a_Plugin:GetName() .. " v." .. a_Plugin:GetVersion())
+	return true
 end
 
 
