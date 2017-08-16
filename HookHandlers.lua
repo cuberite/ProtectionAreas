@@ -142,8 +142,7 @@ end
 function OnSpawningMonster(a_World, a_Monster)
 	local x = a_Monster:GetPosX()
 	local z = a_Monster:GetPosZ()
-	for pa_object in pairs(g_PlayerAreas) do
-		local area = g_PlayerAreas[pa_object]
+	for _, area in pairs(g_PlayerAreas) do
 		if not(area:CanMobSpawn(x, z)) then
 			return true
 		end
