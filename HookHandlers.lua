@@ -142,14 +142,13 @@ end
 function OnSpawningMonster(a_World, a_Monster)
 	local x = a_Monster:GetPosX()
 	local z = a_Monster:GetPosZ()
-	local denySpawn = false
 	for pa_object in pairs(g_PlayerAreas) do
 		local area = g_PlayerAreas[pa_object]
 		if not(area:CanMobSpawn(x, z)) then
-			denySpawn = true
+			return true
 		end
 	end
-	return denySpawn
+	return false
 end
 
 
