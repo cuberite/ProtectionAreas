@@ -23,7 +23,7 @@ g_AreaSafeEdge = 12
 -- Returns true if initialization successful, false otherwise
 function Initialize(a_Plugin)
 	a_Plugin:SetName(g_PluginInfo.Name)
-	a_Plugin:SetVersion(g_PluginInfo.Version)
+	a_Plugin:SetVersion(tonumber(g_PluginInfo.Version))
 	
 	InitializeConfig()
 	if (not(InitializeStorage())) then
