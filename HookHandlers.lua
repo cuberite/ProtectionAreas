@@ -21,7 +21,7 @@ end
 
 
 
---- Called by cuberite when a player disconnects
+--- Called by Cuberite when a player disconnects
 function OnPlayerDestroyed(a_Player)
 	-- Remove the player's cProtectionArea object
 	g_PlayerAreas[a_Player:GetUniqueID()] = nil
@@ -36,7 +36,7 @@ end
 
 
 
---- Called by cuberite whenever a player enters a world (is spawned)
+--- Called by Cuberite whenever a player enters a world (is spawned)
 function OnPlayerSpawned(a_Player)
 	-- Create a new cPlayerAreas object for this player
 	if (g_PlayerAreas[a_Player:GetUniqueID()] == nil) then
@@ -50,7 +50,7 @@ end
 
 
 
---- Called by cuberite whenever a player is moving (at most once every tick)
+--- Called by Cuberite whenever a player is moving (at most once every tick)
 function OnPlayerMoving(a_Player)
 	local PlayerID = a_Player:GetUniqueID()
 	
@@ -72,7 +72,7 @@ end
 
 
 
---- Called by cuberite when a player left-clicks
+--- Called by Cuberite when a player left-clicks
 function OnPlayerLeftClick(a_Player, a_BlockX, a_BlockY, a_BlockZ, a_BlockFace, a_Status)
 	-- If the player has lclked with the wand regardless of their permissions, let's set the coords:
 	if (cConfig:IsWand(a_Player:GetEquippedItem())) then
@@ -105,7 +105,7 @@ end
 
 
 
---- Called by cuberite when a player right-clicks
+--- Called by Cuberite when a player right-clicks
 function OnPlayerRightClick(a_Player, a_BlockX, a_BlockY, a_BlockZ, a_BlockFace, a_CursorX, a_CursorY, a_CursorZ, a_Status)
 
 	-- BlockFace < 0 means "use item", for which the coords are not given by the client
