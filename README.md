@@ -1,6 +1,6 @@
 This plugin lets VIP users define areas of the world where only specified users are allowed to build and dig.
 
-An area is defined by the VIP by using a Wand item (by default, a stick with a meta 1) by left-clicking and right-clicking in two opposite corners of the area, then issuing a /protection add command. Multiple users can be allowed in a single area. There is no hard coded limit on the number of areas or the number of players allowed in a single area. Areas can overlap; in such a case, if a user is allowed in any one of the overlapping areas, they are allowed to build / dig.
+An area is defined by the VIP by using a Wand item (by default, a stick with a meta 1) by left-clicking and right-clicking in two opposite corners of the area, then issuing a /protection add command. Multiple users can be allowed in a single area. There is no hard coded limit on the number of areas or the number of players allowed in a single area. Areas can overlap; in such a case, if a user is allowed in any one of the overlapping areas, they are allowed to build / dig. If mob spawning has been turned off in the ProtectionAreas configuration file, hostile mobs will not spawn in registered areas.
 
 The protected areas are stored in an SQLite database in a file "ProtectionAreas.sqlite" that is created next to the Cuberite executable. The plugin has its configuration options stored in a "ProtectionAreas.ini" file.
 
