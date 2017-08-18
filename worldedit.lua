@@ -26,7 +26,7 @@ function PreventVandalism(a_Cuboid, a_Player)
 
 	Areas:ForEachArea(function( area_Cuboid, is_Allowed )
 		if a_Cuboid:DoesIntersect(area_Cuboid) then -- The World Edit selection is in one of our areas!
-			allow_vandalism = is_Allowed
+			allow_Vandalism = is_Allowed
 		end
 	end)
 
