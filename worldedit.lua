@@ -1,13 +1,21 @@
-
-
+ --[[
+ Integrate with WorldEdit plugin
+ WorldEdit will call PreventVandalism when it is about to change blocks in the world;
+ If enabled, ProtectionAreas will check to see if the player trying to make the
+ changes is allowed to make changes in any areas intersecting the World Edit selection.
+]]--
 
 function InitializeIntegration(a_Plugin)
-	return cPluginManager:CallPlugin(
-		"WorldEdit",
-		"AddHook",
-		"OnAreaChanging",
-		a_Plugin:GetName(),
-		"PreventVandalism")
+	if cConfig.m_IntegrateWorldEdit then
+		return cPluginManager:CallPlugin(
+			"WorldEdit",
+			"AddHook",
+			"OnAreaChanging",
+			a_Plugin:GetName(),
+			"PreventVandalism")
+	else
+		return true
+	end
 end
 
 
