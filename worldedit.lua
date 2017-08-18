@@ -23,10 +23,24 @@ function PreventVandalism(a_Cuboid, a_Player)
 	local Areas = g_PlayerAreas[a_Player:GetUniqueID()]
 	a_Cuboid:Sort()
 	local allow_Vandalism = true
+	local denied_Areas = {}
+	for _, Area in pairs(Areas) do
+		if not(Area.m_IsAllowed) then
+			table.insert(denied_Areas, Area.m_Cuboid)
+		end
+	end
 
 	-- is_Allowed covers overlapping areas & interactions in non protected places
 	Areas:ForEachArea(function(area_Cuboid, is_Allowed)
 		if a_Cuboid:DoesIntersect(area_Cuboid) then -- The World Edit selection is in one of our areas!
+			if is_Allowed then
+				-- Check to make sure we're not in an overlapping area
+				for _, a_Cuboid in pairs(denied_Areas) do
+					if area_Cuboid:DoesIntersect(a_Cuboid) then
+						allow_Vandalism = false
+					end
+				end
+			end
 			allow_Vandalism = is_Allowed
 		end
 	end)
