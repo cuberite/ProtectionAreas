@@ -10,6 +10,7 @@
 cConfig = {
 	m_Wand = cItem(E_ITEM_STICK, 1, 1);  -- The item to be used as the selection wand
 	m_AllowInteractNoArea = true;  -- If there's no area, is a player allowed to build / dig?
+	m_IntegrateWorldEdit = true; -- Try to integrate with the World Edit plugin
 };
 
 
@@ -30,6 +31,7 @@ function InitializeConfig()
 		cConfig.m_Wand = WandItem;
 	end
 	cConfig.m_AllowInteractNoArea = ini:GetValueSetB("ProtectionAreas", "AllowInteractNoArea", cConfig.m_AllowInteractNoArea);
+	cConfig.m_IntegrateWorldEdit = ini:GetValueSetB("ProtectionAreas", "IntegrateWorldEdit", cConfig.m_IntegrateWorldEdit)
 	ini:WriteFile("ProtectionAreas.ini");
 end
 
