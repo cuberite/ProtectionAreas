@@ -2,9 +2,9 @@
 ProtectionAreas license
 =======================
 
-The ProtectionAreas plugin is written by _Xoft(o), Mattes, and William Hatcher and is hereby released as public domain.
+The ProtectionAreas plugin is written by _Xoft(o) / Mattes, and William Hatcher and is hereby released as public domain.
 
-_Xoft(o)'s Note
+Mattes' Note
 If you like it, I'd really appreciate if you sent me a postcard, or something tiny typical from your country :) Find my email at http://xoft.cz
 
 William Hatcher's Note
