@@ -22,5 +22,8 @@ function PreventVandalism(a_Cuboid, a_Player)
 		end
 	end)
 
+	if not(allow_vandalism) then
+		a_Player:SendMessageFailure("You cannot use WorldEdit in areas that you don't have access to!")
+	end
 	return not(allow_vandalism)
 end
