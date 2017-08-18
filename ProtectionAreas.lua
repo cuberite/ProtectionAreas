@@ -33,6 +33,10 @@ function Initialize(a_Plugin)
 	InitializeHooks(a_Plugin);
 	dofile(cPluginManager:GetPluginsPath() .. "/InfoReg.lua")
 	RegisterPluginInfoCommands()
+
+	if not(InitializeIntegration(a_Plugin)) then
+		LOGINFO(PluginPrefix .. "Was not able to integrate with WorldEdit")
+	end
 	
 	-- We might be reloading, so there may be players already present in the server; reload all of them
 	cRoot:Get():ForEachWorld(
