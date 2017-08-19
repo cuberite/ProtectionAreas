@@ -19,34 +19,23 @@ function InitializeIntegration(a_Plugin)
 end
 
 
-function PreventVandalism(a_Cuboid, a_Player)
-	local Areas = g_PlayerAreas[a_Player:GetUniqueID()]
-	a_Cuboid:Sort()
-	local allow_Vandalism = true
+function PreventVandalism(we_Cuboid, we_Player)
+	local Areas = g_PlayerAreas[we_Player:GetUniqueID()]
+	we_Cuboid:Sort()
 	local denied_Areas = {}
-	for _, Area in pairs(Areas) do
-		if not(Area.m_IsAllowed) then
-			table.insert(denied_Areas, Area.m_Cuboid)
-		end
-	end
 
-	-- is_Allowed covers overlapping areas & interactions in non protected places
+	-- Return a table of areas the player cannot interact with
 	Areas:ForEachArea(function(area_Cuboid, is_Allowed)
-		if a_Cuboid:DoesIntersect(area_Cuboid) then -- The World Edit selection is in one of our areas!
-			if is_Allowed then
-				-- Check to make sure we're not in an overlapping area
-				for _, a_Cuboid in pairs(denied_Areas) do
-					if area_Cuboid:DoesIntersect(a_Cuboid) then
-						allow_Vandalism = false
-					end
-				end
-			end
-			allow_Vandalism = is_Allowed
+		if not(is_Allowed) then
+			table.insert(denied_Areas, area_Cuboid)
 		end
 	end)
-
-	if not(allow_Vandalism) then
-		a_Player:SendMessageFailure("You cannot use WorldEdit in areas that you don't have access to!")
+	-- Check if the WorldEdit selection intersects with the player's denied areas
+	-- If so, let the player know, and return
+	for _, area_Cuboid in pairs(denied_Areas) do
+		if we_Cuboid:DoesIntersect(area_Cuboid) then
+			we_Player:SendMessageFailure("You cannot use WorldEdit in areas that you don't have access to!")
+			return true
+		end
 	end
-	return not(allow_Vandalism)
 end
