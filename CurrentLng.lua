@@ -35,6 +35,8 @@ g_Msgs =
 	ErrParseCoords             = "Cannot parse coords";
 	ErrParseCoordsListAreas    = "Cannot list areas, cannot parse coords in parameters";
 	ErrSyntaxErrorListAreas    = "Cannot list areas, syntax error. Expected either no parameters or <x> <z>";
+	ErrWESelectionTooLarge	   = "WorldEdit selection too large for ProtectionAreas";
+	ErrWENotAllowed			   = "You cannot use WorldEdit in areas that you don't have access to!";
 	ListAreasFooter            = "Area list finished";
 	ListAreasHeader            = "Listing protection areas intersecting block column {%d, %d}:";
 	ListAreasRow               = "  %s, %s, created by %s";
@@ -47,9 +49,5 @@ g_Msgs =
 	RemovedUserAll             = "Removed %s from all areas";
 	UsersAdded                 = "Users added: %s";
 	WandGiven                  = "Wand given";
+
 } ;
-
-
-
-
-

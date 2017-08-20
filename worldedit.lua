@@ -24,24 +24,35 @@ end
 function PreventVandalism(we_Cuboid, we_Player)
 	local Areas = g_PlayerAreas[we_Player:GetUniqueID()]
 	we_Cuboid:Sort()
-	local ret = true
 
 	-- Make sure that the relevant areas are loaded
     if not we_Cuboid:IsCompletelyInside(Areas.m_SafeCuboid) then
-        we_Player:SendMessageFailure("WorldEdit selection too large for ProtectionAreas.")
+        we_Player:SendMessageFailure(g_Msgs.ErrWESelectionTooLarge)
         return true
     end
 
+    local Allowed = false
+    local Denied = false
+	-- Return a table of areas the player cannot interact with
 	Areas:ForEachArea(function(area_Cuboid, is_Allowed)
-		area_Cuboid:Sort()
-		if not(is_Allowed) then
-			if we_Cuboid:DoesIntersect(area_Cuboid) then
-				we_Player:SendMessageFailure("You cannot use WorldEdit in areas that you don't have access to!")
-				ret = true
-			end
-		elseif is_Allowed then
-			ret = we_Cuboid:IsCompletelyInside(area_Cuboid)
+        area_Cuboid:Sort()
+		if is_Allowed then
+            if we_Cuboid:IsCompletelyInside(area_Cuboid) then
+            	Allowed = true
+                return true
+            end
+        elseif we_Cuboid:DoesIntersect(area_Cuboid) then
+	        Denied = true
 		end
 	end)
-	return ret
+
+	--[[This could be simplified by doing
+	return not(Allowed or not Denied)
+	But that would not allow the error message to be sent.]]--
+    if Allowed or not Denied then
+        return false
+    end
+ 
+    we_Player:SendMessageFailure(g_Msgs.ErrWENotAllowed)
+    return true
 end
