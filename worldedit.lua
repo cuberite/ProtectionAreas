@@ -3,6 +3,8 @@
  WorldEdit will call PreventVandalism when it is about to change blocks in the world;
  If enabled, ProtectionAreas will check to see if the player trying to make the
  changes is allowed to make changes in any areas intersecting the World Edit selection.
+
+ Thanks to bearbin for reviewing and helping with the logic.
 ]]--
 
 function InitializeIntegration(a_Plugin)
