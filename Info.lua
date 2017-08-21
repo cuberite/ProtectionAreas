@@ -93,41 +93,7 @@ g_PluginInfo =
 							Params = "AreaID",
 						},
 					},
-				},
-				flag =
-				{
-					Permission = "protection.flag",
-					HelpString = "manages flags for the specified area",
-					Handler = HandleAreaFlags,
-					ParameterCombinations =
-					{
-						{
-							Params = "",
-							Help = "lists all flags in areas player is occupying"
-						},
-						{
-							Params = "list AreaID",
-							Help = "lists all flags for specified area",
-						},
-						{
-							Params = "Flag Value",
-							Help = "sets value for specified flag in area player is occupying"
-						},
-						{
-							Params = "Flag Value AreaID",
-							Help = "sets value for specified flag of specified area"
-						},
-						{
-							Params = "Flag default",
-							Help = "Resets flag to default value",
-						},
-						{
-							Params = "Flag default AreaID",
-							Help = "Resets flag to default value of specified AreaID"
-						},
-					},
-				},
-				
+				},				
 				list =
 				{
 					Permission = "protection.list",
