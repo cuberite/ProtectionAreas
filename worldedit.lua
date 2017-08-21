@@ -26,32 +26,33 @@ function PreventVandalism(we_Cuboid, we_Player)
 	we_Cuboid:Sort()
 
 	-- Make sure that the relevant areas are loaded
-    if not we_Cuboid:IsCompletelyInside(Areas.m_SafeCuboid) then
-        we_Player:SendMessageFailure(g_Msgs.ErrWESelectionTooLarge)
-        return true
-    end
+	if not we_Cuboid:IsCompletelyInside(Areas.m_SafeCuboid) then
+		we_Player:SendMessageFailure(g_Msgs.ErrWESelectionTooLarge)
+		return true
+	end
 
-    local Allowed = false
-    local Denied = false
+	local Allowed = false
+	local Denied = false
+	
 	Areas:ForEachArea(function(area_Cuboid, is_Allowed)
-        area_Cuboid:Sort()
+		area_Cuboid:Sort()
 		if is_Allowed then
-            if we_Cuboid:IsCompletelyInside(area_Cuboid) then
-            	Allowed = true
-                return true
-            end
-        elseif we_Cuboid:DoesIntersect(area_Cuboid) then
-	        Denied = true
+			if we_Cuboid:IsCompletelyInside(area_Cuboid) then
+				Allowed = true
+				return true
+			end
+			elseif we_Cuboid:DoesIntersect(area_Cuboid) then
+				Denied = true
 		end
 	end)
 
 	--[[This could be simplified by doing
 	return not(Allowed or not Denied)
 	But that would not allow the error message to be sent.]]--
-    if Allowed or not Denied then
-        return false
-    end
- 
-    we_Player:SendMessageFailure(g_Msgs.ErrWENotAllowed)
-    return true
+	if Allowed or not Denied then
+		return false
+	end
+
+	we_Player:SendMessageFailure(g_Msgs.ErrWENotAllowed)
+	return true
 end
