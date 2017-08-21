@@ -8,7 +8,6 @@
 
 --- Registers all the hooks that the plugin needs to know about
 function InitializeHooks(a_Plugin)
-	local PlgMgr = cRoot:Get():GetPluginManager()
 	cPluginManager.AddHook(cPluginManager.HOOK_PLAYER_DESTROYED,   OnPlayerDestroyed)
 	cPluginManager.AddHook(cPluginManager.HOOK_PLAYER_LEFT_CLICK,  OnPlayerLeftClick)
 	cPluginManager.AddHook(cPluginManager.HOOK_PLAYER_MOVING,      OnPlayerMoving)
