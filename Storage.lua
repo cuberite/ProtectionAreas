@@ -57,16 +57,15 @@ function cStorage:OpenDB()
 		return false;
 	end
 	
-	local createdTable = {
-		self:CreateTable("Areas", {"ID INTEGER PRIMARY KEY AUTOINCREMENT", "MinX", "MaxX", "MinZ", "MaxZ", "WorldName", "CreatorUserName"}),
-		self:CreateTable("AllowedUsers", {"AreaID", "UserName"}),
-		self:CreateTable("Flags", {"AreaID", "Flag", "Value"}),
-	}
-
-	for _, didCreate in pairs(createdTable) do
-		if not(didCreate) then
-			LOGWARNING(PluginPrefix .. "Cannot create DB tables!")
-			return false
+	if not(
+		self:CreateTable("Areas", {"ID INTEGER PRIMARY KEY AUTOINCREMENT", "MinX", "MaxX", "MinZ", "MaxZ", "WorldName", "CreatorUserName"})
+		and
+		self:CreateTable("AllowedUsers", {"AreaID", "UserName"})
+		and
+		self:CreateTable("Flags", {"AreaID", "Flag", "Value"})
+	) then
+		LOGWARNING(PluginPrefix .. "Cannot create DB tables!")
+		return false
 	end
 	
 	return true;
