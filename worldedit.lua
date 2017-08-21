@@ -33,7 +33,6 @@ function PreventVandalism(we_Cuboid, we_Player)
 
     local Allowed = false
     local Denied = false
-	-- Return a table of areas the player cannot interact with
 	Areas:ForEachArea(function(area_Cuboid, is_Allowed)
         area_Cuboid:Sort()
 		if is_Allowed then
