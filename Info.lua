@@ -10,7 +10,7 @@
 g_PluginInfo = 
 {
 	Name = "ProtectionAreas",
-	Version = "1",
+	Version = "2",
 	Date = "2013-12-29",
 	Description =
 	[[
@@ -21,8 +21,7 @@ g_PluginInfo =
 		and right-clicking in two opposite corners of the area, then issuing a /protection add command. Multiple
 		users can be allowed in a single area. There is no hard coded limit on the number of areas or the number
 		of players allowed in a single area. Areas can overlap; in such a case, if a user is allowed in any one
-		of the overlapping areas, they are allowed to build / dig. If mob spawning has been turned off in the
-		ProtectionAreas configuration file, hostile mobs will not spawn in registered areas.
+		of the overlapping areas, they are allowed to build / dig.
 
 		The protected areas are stored in an SQLite database in a file "ProtectionAreas.sqlite" that is created
 		next to the Cuberite executable. The plugin has its configuration options stored in a
@@ -92,6 +91,39 @@ g_PluginInfo =
 					{
 						{
 							Params = "AreaID",
+						},
+					},
+				},
+				flag =
+				{
+					Permission = "protection.flag",
+					HelpString = "manages flags for the specified area",
+					Handler = HandleAreaFlags,
+					ParameterCombinations =
+					{
+						{
+							Params = "",
+							Help = "lists all flags in areas player is occupying"
+						},
+						{
+							Params = "list AreaID",
+							Help = "lists all flags for specified area",
+						},
+						{
+							Params = "Flag Value",
+							Help = "sets value for specified flag in area player is occupying"
+						},
+						{
+							Params = "Flag Value AreaID",
+							Help = "sets value for specified flag of specified area"
+						},
+						{
+							Params = "Flag default",
+							Help = "Resets flag to default value",
+						},
+						{
+							Params = "Flag default AreaID",
+							Help = "Resets flag to default value of specified AreaID"
 						},
 					},
 				},
