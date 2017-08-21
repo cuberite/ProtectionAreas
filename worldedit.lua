@@ -41,8 +41,8 @@ function PreventVandalism(we_Cuboid, we_Player)
 				Allowed = true
 				return true
 			end
-			elseif we_Cuboid:DoesIntersect(area_Cuboid) then
-				Denied = true
+		elseif we_Cuboid:DoesIntersect(area_Cuboid) then
+			Denied = true
 		end
 	end)
 
