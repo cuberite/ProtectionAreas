@@ -50,8 +50,8 @@ function cCommandState:GetCurrentCuboid()
 	end
 	
 	local res = cCuboid(
-		self.m_Coords1.x, 0,   self.m_Coords1.z,
-		self.m_Coords2.x, 255, self.m_Coords2.z
+		Vector3i(self.m_Coords1.x, 0,   self.m_Coords1.z),
+		Vector3i(self.m_Coords2.x, 255, self.m_Coords2.z)
 	);
 	res:Sort();
 	return res;

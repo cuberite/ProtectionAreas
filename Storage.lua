@@ -221,7 +221,8 @@ function cStorage:LoadPlayerAreas(a_PlayerName, a_PlayerX, a_PlayerZ, a_WorldNam
 			LOGWARNING("SQL query didn't return all data");
 			return 0;
 		end
-		res:AddArea(cCuboid(Values[2], 0, Values[4], Values[3], 255, Values[5]), self:IsAreaAllowed(Values[1], a_PlayerName, a_WorldName));
+		local Cuboid = cCuboid(Vector3i(Values[2], 0, Values[4]), Vector3i(Values[3], 255, Values[5]))
+		res:AddArea(Cuboid, self:IsAreaAllowed(Values[1], a_PlayerName, a_WorldName))
 		return 0;
 	end
 	
