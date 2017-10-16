@@ -35,7 +35,7 @@ function cPlayerAreas:new(a_SafeMinX, a_SafeMinZ, a_SafeMaxX, a_SafeMaxZ)
 	local obj = {};
 	setmetatable(obj, self);
 	self.__index = self;
-	self.m_SafeCuboid = cCuboid(a_SafeMinX, 0, a_SafeMinZ, a_SafeMaxX, 255, a_SafeMaxZ);
+	self.m_SafeCuboid = cCuboid(Vector3i(a_SafeMinX, 0, a_SafeMinZ), Vector3i(a_SafeMaxX, 255, a_SafeMaxZ));
 	return obj;
 end
 
