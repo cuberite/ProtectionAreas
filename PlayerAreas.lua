@@ -57,8 +57,9 @@ function cPlayerAreas:CanInteractWithBlock(a_BlockX, a_BlockZ)
 	
 	-- iterate through all the stored areas:
 	local IsInsideAnyArea = false;
+	local coords = Vector3d(a_BlockX, 1, a_BlockZ)
 	for idx, Area in ipairs(self) do
-		if (Area.m_Cuboid:IsInside(a_BlockX, 1, a_BlockZ)) then  -- We don't care about Y coords, so use a dummy value
+		if (Area.m_Cuboid:IsInside(coords)) then  -- We don't care about Y coords, so use a dummy value
 			if (Area.m_IsAllowed) then
 				return true;
 			end
@@ -101,7 +102,7 @@ end
 --- Returns true if the player is withing the safe cuboid (no need to re-query the areas)
 function cPlayerAreas:IsInSafe(a_BlockX, a_BlockZ)
 	assert(self);
-	return self.m_SafeCuboid:IsInside(a_BlockX, 0, a_BlockZ);
+	return self.m_SafeCuboid:IsInside(Vector3d(a_BlockX, 0, a_BlockZ));
 end
 
 
